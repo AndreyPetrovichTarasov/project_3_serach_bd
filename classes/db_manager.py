@@ -30,7 +30,8 @@ class DBManager:
         SELECT employer.name, employer.all_vacancies
         FROM employer
 
-        GROUP BY employer.name, employer.all_vacancies;
+        GROUP BY employer.name, employer.all_vacancies
+        ORDER BY employer.all_vacancies DESC;
         '''
         return self.__execute_query(query)
 
