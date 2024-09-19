@@ -4,7 +4,8 @@ from utils.output_functions import (output_all_vacancies, output_vacancies_with_
                                     output_companies_and_vacancies_count, output_vacancies_with_higher_salary)
 
 
-def main():
+def main() -> None:
+    """Основная функция, диалог с пользователем"""
     db_name = "course_test"
 
     create_db(db_name)

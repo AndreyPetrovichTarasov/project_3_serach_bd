@@ -14,7 +14,7 @@ conn_params = {
 }
 
 
-def create_db(db_name):
+def create_db(db_name: str) -> None:
     """Функция для создания БД"""
     conn = psycopg2.connect(**conn_params)
 
@@ -28,7 +28,7 @@ def create_db(db_name):
     conn.close()
 
 
-def create_table(db_name):
+def create_table(db_name: str) -> None:
     """Функция для создания таблиц employer и vacancy"""
     conn = psycopg2.connect(dbname=db_name, user=os.getenv("user"), password=os.getenv("password"),
                             host=os.getenv("host"), port=os.getenv("port"))
@@ -50,7 +50,7 @@ def create_table(db_name):
     conn.close()
 
 
-def insert_data(db_name):
+def insert_data(db_name: str) -> None:
     """Функция для заполнения таблиц данными, полученными от АПИ"""
     conn = psycopg2.connect(dbname=db_name, user=os.getenv("user"), password=os.getenv("password"),
                             host=os.getenv("host"), port=os.getenv("port"))
