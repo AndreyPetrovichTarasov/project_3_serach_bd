@@ -15,6 +15,7 @@ conn_params = {
 
 
 def create_db(db_name):
+    """Функция для создания БД"""
     conn = psycopg2.connect(**conn_params)
 
     conn.autocommit = True
@@ -28,12 +29,14 @@ def create_db(db_name):
 
 
 def create_table(db_name):
+    """Функция для создания таблиц employer и vacancy"""
     conn = psycopg2.connect(dbname=db_name, user=os.getenv("user"), password=os.getenv("password"),
                             host=os.getenv("host"), port=os.getenv("port"))
     with conn:
         with conn.cursor() as cur:
             cur.execute('''CREATE TABLE employer (
             id INT PRIMARY KEY,
+            all_vacancies INT,
             name VARCHAR(255))''')
 
             cur.execute('''CREATE TABLE vacancy (
@@ -48,6 +51,7 @@ def create_table(db_name):
 
 
 def insert_data(db_name):
+    """Функция для заполнения таблиц данными, полученными от АПИ"""
     conn = psycopg2.connect(dbname=db_name, user=os.getenv("user"), password=os.getenv("password"),
                             host=os.getenv("host"), port=os.getenv("port"))
     with conn:
@@ -56,7 +60,8 @@ def insert_data(db_name):
             employers = hh.get_employers()
             for employer in employers:
                 employer_id = employer['id']
-                cur.execute('INSERT INTO employer VALUES (%s, %s)', (employer['id'], employer['name']))
+                cur.execute('INSERT INTO employer VALUES (%s, %s, %s)', (employer['id'],
+                                                                         employer['open_vacancies'], employer['name']))
                 vacancies = hh.get_vacancies(employer_id)
                 for vacancy in vacancies:
                     if not vacancy['salary']:
