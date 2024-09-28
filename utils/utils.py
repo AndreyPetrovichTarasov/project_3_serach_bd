@@ -7,7 +7,7 @@ load_dotenv()
 
 conn_params = {
     "host": os.getenv('host'),
-    "database": "postgres",
+    # "database": "postgres",
     "user": os.getenv('user'),
     "password": os.getenv('password'),
     "port": os.getenv('port')
